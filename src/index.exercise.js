@@ -38,7 +38,13 @@ const DialogComponent = ({openModal, setOpenModal}) => {
     setOpenModal(null)
   }
 
-  const handleLoginFormSubmit = ({username, password}) => {
+  const login = ({username, password}) => {
+    console.log('login')
+    console.log(username, password)
+  }
+
+  const register = ({username, password}) => {
+    console.log('register')
     console.log(username, password)
   }
 
@@ -60,10 +66,15 @@ const DialogComponent = ({openModal, setOpenModal}) => {
         {openModal === 'login' && (
           <div className="login-modal-content">
             <h1 className="title">Login form</h1>
-            <LoginForm onSubmit={handleLoginFormSubmit} />
+            <LoginForm onSubmit={login} />
           </div>
         )}
-        {openModal === 'register' && <h1 className="title">Register form</h1>}
+        {openModal === 'register' && (
+          <div className="register-modal-content">
+            <h1 className="title">Register form</h1>
+            <LoginForm onSubmit={register} />
+          </div>
+        )}
       </Dialog>
     </>
   )
@@ -82,7 +93,8 @@ const App = () => {
 
   return (
     <div className="welcome-page">
-      <Logo />
+      <Logo height="80" width="80" />
+      <h1>Bookshelf</h1>
       <div className="buttons-wrapper">
         <button onClick={handleLogin}>Login</button>
         <button onClick={handleRegister}>Register</button>
