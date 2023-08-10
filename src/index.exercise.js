@@ -1,20 +1,93 @@
 // 🐨 you'll need to import react and createRoot from react-dom up here
-import React from 'react'
+import React, {useState} from 'react'
+import '@reach/dialog/styles.css'
+import {Dialog} from '@reach/dialog'
+import {VisuallyHidden} from '@reach/visually-hidden'
+import './styles.css'
 const {Logo} = require('components/logo')
 const {createRoot} = require('react-dom/client')
 
-const App = () => {
-  const handleLogin = () => {
-    console.log('clicked handle login')
+const LoginForm = ({onSubmit, buttonText}) => {
+  const handleSubmitForm = e => {
+    e.preventDefault()
+    const {username, password} = e.target.elements
+
+    onSubmit({
+      username: username.value,
+      password: password.value,
+    })
   }
-  const handleRegister = () => {
-    console.log('clicked handle register')
-  }
+
   return (
-    <div>
+    <form onSubmit={handleSubmitForm} className="login-form">
+      <div className="form-item">
+        <label htmlFor="username">Username</label>
+        <input id="username" />
+      </div>
+      <div className="form-item">
+        <label htmlFor="password">Password</label>
+        <input id="password" />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+
+const DialogComponent = ({openModal, setOpenModal}) => {
+  const handleCloseModal = () => {
+    setOpenModal(null)
+  }
+
+  const handleLoginFormSubmit = ({username, password}) => {
+    console.log(username, password)
+  }
+
+  return (
+    <>
+      <Dialog
+        aria-label="dialog"
+        isOpen={
+          openModal === 'login' || openModal === 'register' ? true : false
+        }
+        onDismiss={handleCloseModal}
+      >
+        <div className="close-button-wrapper">
+          <button className="close-button" onClick={handleCloseModal}>
+            <VisuallyHidden>Close</VisuallyHidden>
+            <span aria-hidden>×</span>
+          </button>
+        </div>
+        {openModal === 'login' && (
+          <div className="login-modal-content">
+            <h1 className="title">Login form</h1>
+            <LoginForm onSubmit={handleLoginFormSubmit} />
+          </div>
+        )}
+        {openModal === 'register' && <h1 className="title">Register form</h1>}
+      </Dialog>
+    </>
+  )
+}
+
+const App = () => {
+  const [openModal, setOpenModal] = useState(null)
+
+  const handleLogin = () => {
+    setOpenModal('login')
+  }
+
+  const handleRegister = () => {
+    setOpenModal('register')
+  }
+
+  return (
+    <div className="welcome-page">
       <Logo />
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={handleRegister}>Register</button>
+      <div className="buttons-wrapper">
+        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleRegister}>Register</button>
+      </div>
+      <DialogComponent openModal={openModal} setOpenModal={setOpenModal} />
     </div>
   )
 }

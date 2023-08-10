@@ -1,0 +1,38 @@
+.close-button {
+}
+
+.welcome-page {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.close-button-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.title {
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+}
