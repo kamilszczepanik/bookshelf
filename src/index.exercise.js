@@ -5,6 +5,28 @@ import {Modal, ModalContents, ModalOpenButton} from './components/modal'
 import {Logo} from './components/logo'
 import 'styles/global.css'
 
+const CustomButton = ({variant, children, ...props}) => {
+  let styles = 'rounded w-20 py-1 text-md font-standard '
+
+  switch (variant) {
+    case 'primary':
+      styles += 'text-white bg-blue-800'
+      break
+    case 'secondary':
+      styles += 'bg-gray-100 text-black'
+      break
+    default:
+      styles += ''
+      break
+  }
+
+  return (
+    <button className={styles} {...props}>
+      {children}
+    </button>
+  )
+}
+
 function LoginForm({onSubmit, submitButton}) {
   function handleSubmit(event) {
     event.preventDefault()
@@ -17,16 +39,18 @@ function LoginForm({onSubmit, submitButton}) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} class="flex flex-col gap-4 mt-2">
+      <div class="flex flex-col px-12">
         <label htmlFor="username">Username</label>
-        <input id="username" />
+        <input class="bg-gray-100 h-10" id="username" />
       </div>
-      <div>
+      <div class="flex flex-col px-12">
         <label htmlFor="password">Password</label>
-        <input id="password" type="password" />
+        <input class="bg-gray-100 h-10" id="password" type="password" />
       </div>
-      <div>{React.cloneElement(submitButton, {type: 'submit'})}</div>
+      <div class="ml-12 ">
+        {React.cloneElement(submitButton, {type: 'submit'})}
+      </div>
     </form>
   )
 }
@@ -41,29 +65,33 @@ function App() {
   }
 
   return (
-    <div class="m-3">
+    <div class="flex justify-center items-center min-h-screen flex-col">
       <Logo width="80" height="80" />
-      <h1>Bookshelf</h1>
-      <div>
+      <h1 class="font-medium text-4xl mb-2">Bookshelf</h1>
+      <div class="flex gap-2">
         <Modal>
           <ModalOpenButton>
-            <button variant="primary">Login</button>
+            <CustomButton variant="primary">Login</CustomButton>
           </ModalOpenButton>
           <ModalContents aria-label="Login form" title="Login">
             <LoginForm
               onSubmit={login}
-              submitButton={<button variant="primary">Login</button>}
+              submitButton={
+                <CustomButton variant="primary">Login</CustomButton>
+              }
             />
           </ModalContents>
         </Modal>
         <Modal>
-          <ModalOpenButton>
-            <button variant="secondary">Register</button>
+          <ModalOpenButton class="flex">
+            <CustomButton variant="secondary">Register</CustomButton>
           </ModalOpenButton>
           <ModalContents aria-label="Registration form" title="Register">
             <LoginForm
               onSubmit={register}
-              submitButton={<button variant="secondary">Register</button>}
+              submitButton={
+                <CustomButton variant="secondary">Register</CustomButton>
+              }
             />
           </ModalContents>
         </Modal>
