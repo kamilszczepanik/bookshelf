@@ -4,6 +4,11 @@
 
 Elaborate on your learnings here in `INSTRUCTIONS.md`
 
+### I know a lot of this Make HTTP Request workshop as well as Add Styles workshop
+
+So I didn't bothered doing exercise by myself, I've only watched videos and I'm
+doing notes.
+
 ## Background
 
 Our app wouldn't be very interesting without the ability to request data from a
