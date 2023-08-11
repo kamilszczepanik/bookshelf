@@ -4,6 +4,8 @@
 
 Elaborate on your learnings here in `INSTRUCTIONS.md`
 
+### It is good to have components named in Components tab in web browser - development experience
+
 ## Background
 
 There are many ways to style React applications, each approach comes with its
